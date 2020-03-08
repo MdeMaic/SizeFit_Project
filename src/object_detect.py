@@ -20,13 +20,16 @@ args = vars(ap.parse_args())
 # load the image, convert it to grayscale, and blur it slightly
 image = cv2.imread(args["image"])
 print(image.shape)
-height = int(700)
-width = int(image.shape[1] * height / image.shape[0])
-dim = (width, height)
+
+#RESIZE
+#height = int(700)
+#width = int(image.shape[1] * height / image.shape[0])
+#dim = (width, height)
 # resize image
-image = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
-print(image.shape)
+#image = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+#print(image.shape)
 #image = resizeImg(image,256)
+
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 gray = cv2.GaussianBlur(gray, (7, 7), 1)
 
@@ -105,22 +108,22 @@ for c in cnts:
 	cv2.line(orig, (int(tlblX), int(tlblY)), (int(trbrX), int(trbrY)),(255, 0, 255), 2)
 
 	# compute the Euclidean distance between the midpoints
-	dA = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
-	dB = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
+	dAltura = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
+	dAncho = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
 
 	# if the pixels per metric has not been initialized, then
 	# compute it as the ratio of pixels to supplied metric
 	# (in this case, inches)
 	if pixelsPerMetric is None:
-		pixelsPerMetric = dA / args["altura"]
+		pixelsPerMetric = dAltura / args["altura"]
 
 	# compute the size of the object
-	dimA = dA / pixelsPerMetric
-	dimB = dB / pixelsPerMetric
+	dimAltura = dAltura / pixelsPerMetric
+	dimAncho = dAncho / pixelsPerMetric
     
 	# draw the object sizes on the image
-	cv2.putText(orig, "{:.1f}cm".format(dimA),(int(tltrX), int(tltrY + 30)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
-	cv2.putText(orig, "{:.1f}cm".format(dimB),(int(trbrX + 10), int(trbrY)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+	cv2.putText(orig, "{:.1f}cm".format(dimAltura),(int(tltrX), int(tltrY + 30)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+	cv2.putText(orig, "{:.1f}cm".format(dimAncho),(int(trbrX + 10), int(trbrY)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
 
 	# show the output image
 	cv2.imshow("Image", orig)
