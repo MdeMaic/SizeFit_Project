@@ -35,13 +35,13 @@ def resizeImg(img,dimension=256):
     return img
 
 def generateMask(img,net=fcn):
-    print(" * -- Are you a person?")
+    print("  * -- Are you a person?")
     trf = tt.Compose([tt.ToTensor(), 
                    tt.Normalize(mean = [0.485, 0.456, 0.406], 
                                std = [0.229, 0.224, 0.225])])
-    print(" * -- oooops... something went wrong")
+    print("  * -- oooops... something went wrong")
     inp = trf(img).unsqueeze(0)
-    print(" * -- Just kidding...We are almost there!")
+    print("  * -- Just kidding...We are almost there!")
     out = net(inp)['out']
     om = torch.argmax(out.squeeze(), dim=0).detach().cpu().numpy()
     rgb = decode_segmap(om)

@@ -1,6 +1,8 @@
 # import the necessary packages
+from obtain_measures import *
 import argparse
 import cv2
+
 # initialize the list of reference points and boolean indicating
 # whether cropping is being performed or not
 refPt = []
@@ -21,17 +23,20 @@ def click_and_crop(event, x, y, flags, param):
 		refPt.append((x, y))
 		cropping = False
 		# draw a rectangle around the region of interest
-		cv2.rectangle(image, refPt[0], refPt[1], (0, 255, 0), 2)
+		cv2.line(image, refPt[0], refPt[1], (0, 255, 0), 2)
 		cv2.imshow("image", image)
 
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True, help="Path to the image")
+ap.add_argument("-a", "--altura", required=True, help="altura en centimetros")
 args = vars(ap.parse_args())
 
 # load the image, clone it, and setup the mouse callback function
 image = cv2.imread(args["image"])
+altura = args["altura"]
+obtainMeasures(image,altura)
 clone = image.copy()
 cv2.namedWindow("image")
 cv2.setMouseCallback("image", click_and_crop)
