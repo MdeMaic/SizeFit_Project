@@ -77,7 +77,7 @@ There are metrics from sklearn that help you to choose the best model
     - Accuracy score
     - MRSE…
 
-![model_result](presentation/images/result_table.jpg)
+![model_result](presentation/images/result_table.png)
 
 
 5. Generate the cv2 image treatment
