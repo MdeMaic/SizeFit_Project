@@ -41,7 +41,7 @@ def generateMask(img,net=fcn):
                                std = [0.229, 0.224, 0.225])])
     print("  * -- oooops... something went wrong")
     inp = trf(img).unsqueeze(0)
-    print("  * -- Just kidding...We are almost there!")
+    print("  * -- Just kidding... We are almost there!")
     out = net(inp)['out']
     om = torch.argmax(out.squeeze(), dim=0).detach().cpu().numpy()
     rgb = decode_segmap(om)

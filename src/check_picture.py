@@ -1,5 +1,4 @@
 import cv2
-import pandas as pd
 import numpy as np
 import imutils
 from scipy.spatial import distance as dist
@@ -200,7 +199,7 @@ def getMeasures(img,c,face,altura):
     orig = cv2.cvtColor(orig, cv2.COLOR_BGR2RGB)
     #cv2.imshow("picture",orig)
     #cv2.waitKey(0)
-    return orig
+    return orig,pixelsPerMetric
     
 def obtainMeasures(path,altura):
     print('Resizing image')
@@ -213,13 +212,15 @@ def obtainMeasures(path,altura):
         face = 0 #findFace(img_bw)
         c = getContour(img_bw)
         print('Getting measures')
-        measures = getMeasures(img,c,face,altura)
+        picture,pixelsPerMetric = getMeasures(img,c,face,altura)
 
-        return measures
+        return picture,pixelsPerMetric
     else:
         print("The image is not valid.")
+        return False,False
 
-measure = obtainMeasures("../inputs/images/People_Yes_fullHD/OK_000001.jpg",140)
-
-cv2.imshow("picture",measure)
-cv2.waitKey(0)
+#### TEST ####
+#measure,pix = obtainMeasures("../inputs/images/People_Yes_fullHD/OK_000030.jpg",180)
+#print(pix)
+#cv2.imshow("picture",measure)
+#cv2.waitKey(0)
