@@ -1,0 +1,6 @@
+,ord,model,parameters,score,test_score
+0,1,LinearClassificator,default,0.45,0.6
+1,2,RandomForestClassificator,balance dropping values (650),0.45,0.53
+2,3,RandomForestClassificator,n_estimators = 500,0.78,0.76
+3,4,HistGradientBoostingClassifier,learning_rate = 0.5,0.86,0.75
+4,5,HistGradientBoostingClassifier,learning_rate=0.8,0.79,0.78

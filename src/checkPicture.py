@@ -12,6 +12,10 @@ import tqdm
 filename = 'models/histgrad_model.sav'
 loaded_model = joblib.load(filename)
 
+#Colours RGB
+azul = (42, 90, 118)
+verde = (44, 84, 62) 
+
 def midpoint(ptA, ptB):
 	return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)
 
@@ -54,7 +58,6 @@ def checkPicture(img):
     #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # Generate a mask
-    print(" Generating mask...")
     mask = generateMask(img)
     background_mask = np.all(mask == [0, 0, 0], axis=-1)
     #imarr = np.array(img)
@@ -74,8 +77,9 @@ def checkPicture(img):
     img_bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res = loaded_model.predict([getFeats(img_bw)])
     '''
-    print("Validation result -->",res[0])
-    
+    print(" --------------------------")
+    print("| Validation result -->",res[0],"|")
+    print(" --------------------------")
     return res[0],img,img_bw
 
 def findFace(img_bw):
@@ -162,15 +166,15 @@ def getMeasures(img,c,face,altura):
     (trbrX, trbrY) = midpoint(tr, br)
 
     # draw the midpoints on the image
-    cv2.circle(orig, (int(tltrX), int(tltrY)), 5, (255, 0, 0), -1)
-    cv2.circle(orig, (int(blbrX), int(blbrY)), 5, (255, 0, 0), -1)
+    cv2.circle(orig, (int(tltrX), int(tltrY)), 5, azul, -1)
+    cv2.circle(orig, (int(blbrX), int(blbrY)), 5, azul, -1)
     #cv2.circle(orig, (int(tlblX), int(tlblY)), 5, (255, 0, 0), -1)
     #cv2.circle(orig, (int(trbrX), int(trbrY)), 5, (255, 0, 0), -1)
 
     # draw lines to measure altura:
-    cv2.line(orig, (int(tltrX),int(tltrY)),(int(tlX-10),int(tlY)),(255, 0, 0), 2)
-    cv2.line(orig, (int(blbrX),int(blbrY)),(int(blX-10),int(blY)),(255, 0, 0), 2)
-    cv2.line(orig, (int(tlX-10),int(tlY)),(int(blX-10),int(blY)),(255, 0, 0), 2)
+    cv2.line(orig, (int(tltrX),int(tltrY)),(int(tlX-10),int(tlY)),azul, 1)
+    cv2.line(orig, (int(blbrX),int(blbrY)),(int(blX-10),int(blY)),azul, 1)
+    cv2.line(orig, (int(tlX-10),int(tlY)),(int(blX-10),int(blY)),azul, 1)
     #cv2.line(orig, (int(tlblX), int(tlblY)), (int(trbrX), int(trbrY)),(255, 0, 0), 2)
    
     
@@ -191,8 +195,8 @@ def getMeasures(img,c,face,altura):
     max_ancho = dAncho / pixelsPerMetric
     
     # draw the object sizes on the image
-    cv2.putText(orig,"{:.1f}".format(dimAltura),(int(tlX-80),int(tlY+200)),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)
-    cv2.putText(orig,"cm",(int(tlX-55),int(tlY+220)),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)
+    cv2.putText(orig,"{:.1f}".format(dimAltura),(int(tlX-80),int(tlY+200)),cv2.FONT_HERSHEY_SIMPLEX,0.7,azul,2)
+    cv2.putText(orig,"cm",(int(tlX-55),int(tlY+220)),cv2.FONT_HERSHEY_SIMPLEX,0.7,azul,2)
     
     # show the output image
     #plt.subplot(1,2,2)
