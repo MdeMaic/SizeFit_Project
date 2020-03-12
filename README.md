@@ -39,44 +39,54 @@ Two datasets are given in a [kaggle competition](https://www.kaggle.com/c/avila-
 
 ## Resources and libraries
 - Sklearn | Machine Learning Library with regression models
-- TensorFlow Keras | ML library
-- h2O | Auto ML module for machine learning
+- CV2 | Image treatment for python
+- Tkinter | GUI for python
 
 
 ## Inputs
-- diamonds_train.CSV | Shape (40345, 11)
-- diamonds_test.CSV | Shape (13449, 10)
+- train_human_dataset_images | Shape 565
+- train_not_human_dataset_images | Shape 590
+- test_kids_dataset_images | Shape 50
+- Updated size dataset 
 
 
 ## Outputs
-- Models submitted to the kaggle competition
-- Jupyter Notebooks of the process of each model
+- Models trained
+- Code to recommendation
 
 
 ## Methodology
-1. Cleaning Dataset
+1. Generate the strategy
+
+2. Cleaning and create all datasets
 The following decision has to be done 
     - Ensure not Null values
     - Avoid not numeric values
     - Drop the high correlated features
     - Standardize or normalize high-value range features
+    - Get all images path
 
-2. Identify the best model
+3. Identify the best model
 Different models apport different results. Some of them are analysed in the project.
-    - LinearRegression
-    - RandomForestRegression
-    - LassoCV
-    - SGDRegressor
-    - Keras Sequential Dense Neural Network
-    - SVR
-    - Polynomic RFR
-    - Sum of two Polynomic RFR
+    - LinearClassification
+    - RandomForestClassification
+    - HistGradientBoostingClassification
 
-3. Analyse the result
+4. Analyse the result
 There are metrics from sklearn that help you to choose the best model
-    - R2_score
-    - MRSE
-    - Scatter plot y_test vs y_true
+    - Accuracy score
+    - MRSE…
+
+![model_result](presentation/images/result_table.jpg)
+
+
+5. Generate the cv2 image treatment
+    - Get measures in the picture
+    - Ensure pixel per metric transformation
+    - Save this measures
+
+6. Recommend using query to the size Dataset
+
 
 
 ## Results
