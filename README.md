@@ -2,7 +2,9 @@
 
 
 ## Objective
-Recommend the best size using the current guide.
+The current size guide used in Zara Kids is a table not very user-friendly. The objective of this project is create a size recommendator using a picture of the user and a Machine Learning model that validate the picture and recommend the best size according to the main measures.
+
+![proposal](presentation/images/proposal.png)
 
 
 ## Instructions
