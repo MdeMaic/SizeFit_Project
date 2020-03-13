@@ -64,19 +64,14 @@ def checkPicture(img):
     # Apply Mask / Separate Foreground and Background 
     foreground = np.array(img)
     foreground[background_mask] = [0,0,0]
-    #plt.figure(figsize=(8,12))
-    #plt.subplot(1,2,1)
-    #plt.imshow(foreground,cmap="gray")
+
     
     img_bw = cv2.cvtColor(foreground, cv2.COLOR_RGB2GRAY)
     img_bw = cv2.GaussianBlur(img_bw, (7, 7), 1)
     
     res = loaded_model.predict([getFeats(img_bw)])
     
-    '''
-    img_bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    res = loaded_model.predict([getFeats(img_bw)])
-    '''
+  
     print(" --------------------------")
     print("| Validation result -->",res[0],"|")
     print(" --------------------------")
@@ -100,16 +95,13 @@ def findFace(img_bw):
             face_area = w*h
             if face_area > min_area:
                 face = [x,y,w,h]
-            #cv2.rectangle(img_bw, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
         return face
 
 def getContour(img_bw):
     edged = cv2.Canny(img_bw, 50, 100)
     edged = cv2.dilate(edged, None, iterations=1)
     edged = cv2.erode(edged, None, iterations=1)
-    #plt.subplot(1,3,2)
-    #plt.imshow(edged,cmap="gray")
-    
     
     # find contours in the edge map
     cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -143,10 +135,6 @@ def getMeasures(img,c,face,altura):
         face_points = [[x,y],[x,y+h],[x+w,y+h],[x+w,y]]
         face = np.array(face_points, dtype="int")
         #print(face)
-    
-    # loop over the original points and draw them
-    #for (x, y) in new_box:
-        #cv2.circle(orig, (int(x), int(y)), 5, (0, 0, 255), -1)
     
     
     # unpack the ordered bounding box, then compute the midpoint
@@ -188,7 +176,7 @@ def getMeasures(img,c,face,altura):
     # compute it as the ratio of pixels to supplied metric
     #altura=120
     #altura = input("altura: ")
-    pixelsPerMetric = dAltura / int(altura)
+    pixelsPerMetric = dAltura / float(altura)
 
     # compute the size of the object
     dimAltura = dAltura / pixelsPerMetric
@@ -215,7 +203,8 @@ def obtainMeasures(path,altura):
         #print('Finding face')
         face = 0 #findFace(img_bw)
         c = getContour(img_bw)
-        print('Getting measures')
+        print("\nSTEP 3: Getting measures")
+        print("---------------------------")
         picture,pixelsPerMetric = getMeasures(img,c,face,altura)
 
         return picture,pixelsPerMetric

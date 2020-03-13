@@ -6,6 +6,14 @@ import argparse
 from checkPicture import resizeImg, obtainMeasures
 from scipy.spatial import distance as dist
 from findSize import *
+from pymongo import MongoClient
+
+# Connect to the database
+client = MongoClient("mongodb://localhost/fitsize")
+
+# Asignar variables a las colecciones para evitar que se reinicien en cada función.
+db = client.get_database()
+coll_measures = db["user_measures"]
 
 #Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -18,10 +26,26 @@ image = args["image"]
 altura = args["altura"]
 
 #Welcome pack
-print("-----------------------------------------------")
+print("\n------------------------------------------------------------")
 print("WELCOME! :)")
-print("Let's find together the best size for your kid!")
-print("-----------------------------------------------")
+print("Let's find together the best size for your kid in five steps!")
+print("------------------------------------------------------------\n")
+
+print("STEP 1: Choose your product")
+print("---------------------------")
+product = input("Choose here - camisa, abrigo, pantalon o falda: ")
+print(f"You choosed {product}")
+
+lst_product = ["camisa","abrigo","pantalon","falda"]
+
+while product not in lst_product:
+    print("Sorry, not in the options right now… plese choose again")
+    product = input("camisa, abrigo, pantalon o falda: ")
+    print(f"You choosed {product}")
+
+
+print("\nSTEP 2: Validating your picture")
+print("---------------------------")
 
 #Define global variables
 start = False
@@ -114,9 +138,57 @@ if __name__ == "__main__":
                                 }
                     print("------")
                     print("SAVED")
-                    print(measures)
+                    #print(measures)
                     cv2.putText(image,"Values SAVED",(15,90),cv2.FONT_HERSHEY_SIMPLEX,0.5,RGBtoBGR(verde), 2)
 
+                    df = pd.read_csv("../outputs/ropa_clean.csv",index_col=0)
+                    df = cleanMyDf(df)
+
+                    if len (measures) >= 1:
+                        uptalla = findUp(df,measures)
+
+                        dwtalla = findDw(df,measures)
+                        
+                        print("\nSTEP 4: Your recommendation")
+                        print("---------------------------")
+                        if product == 'camisa' or product == 'abrigo':
+
+                            print(f"If you are looking for a {product}")
+                            print(f"Your kid size recommendation is {uptalla}\n")
+
+                        elif product == 'pantalon' or product == 'falda':
+
+                            print(f"If you are looking for {product}")
+                            print(f"Your kid size recommendation is {dwtalla}\n")
+                        
+
+                        print("THANKS FOR USING THIS SERVICE!")
+                        print("We hope it helped…\n\n")
+
+                        cv2.waitKey(10000)
+                        print("FEW TIMES LATER.... AFTER THE DELIVERY")
+                        print("\nSTEP 5: Are you happy?")
+                        print("---------------------------")
+                        print("Satisfaction: 'return' if the user returned the product. 'happy' if not...")
+                        size_satisf = input ("return or happy: ")
+                        satisf_lst = ["return","happy"]
+
+                        while size_satisf not in satisf_lst:
+                            print("Try again please")
+                            size_satisf = input ("return or happy: ")
+
+                        new_query = {"measures":measures,
+                                    "product":product,
+                                    "size_choosed_up":uptalla,
+                                    "size_choosed_dw":dwtalla,
+                                    "satisfact":size_satisf
+                                    }
+                        #print(new_query)
+
+                        query = coll_measures.insert_one(new_query)
+
+                        print("\n\nThank you! Press 'q' in the picture to exit :)")                 
+                
                 else:
                     cv2.putText(image,"Not saved. Need 4 values",(15,70),cv2.FONT_HERSHEY_SIMPLEX,0.5,RGBtoBGR(rojo), 2)
             elif key == ord('r'):
@@ -128,20 +200,4 @@ if __name__ == "__main__":
         
         cv2.destroyAllWindows()
 
-        df = pd.read_csv("../outputs/ropa_clean.csv",index_col=0)
-        df = cleanMyDf(df)
-
-        if len (measures) >= 1:
-            uptalla = findUp(df,measures)
-
-            dwtalla = findDw(df,measures)
-
-            print("If you are looking for a up clothe")
-            print(f"Your kid size is {uptalla}\n")
-
-            print("If you are looking for a down clothe")
-            print(f"Your kid size is {dwtalla}\n")
-            
-            print("THANKS FOR USING THIS SERVICE!")
-            print("We hope it helps…")
         
