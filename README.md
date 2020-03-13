@@ -34,34 +34,34 @@ Using webscrapping the picture dataset is generated.
 ![generate_dataset](presentation/images/Working_get_Dataset.png)
 
 In the cleaning work, the following decision has to be done 
-    - Ensure not Null values
-    - Avoid not numeric values
-    - Drop the high correlated features
-    - Standardize or normalize high-value range features
-    - Get all images path
+- Ensure not Null values
+- Avoid not numeric values
+- Drop the high correlated features
+- Standardize or normalize high-value range features
+- Get all images path
 
 3. Identify the best model
 Different models apport different results. Some of them are analysed in the project.
-    - LinearClassification
-    - RandomForestClassification
-    - HistGradientBoostingClassification
+- LinearClassification
+- RandomForestClassification
+- HistGradientBoostingClassification
 
 ![model_working](presentation/images/model_working.png)
 
 4. Analyse the result
 There are metrics from sklearn that help you to choose the best model
-    - Accuracy score
-    - MRSE…
+- Accuracy score
+- MRSE…
 
 ![model_result](presentation/images/result_table.png)
 
 5. Generate the cv2 image treatment
-    - Get measures in the picture
-    - Ensure pixel per metric transformation
-    - Save this measures
+- Get measures in the picture
+- Ensure pixel per metric transformation
+- Save this measures
 
 6. Recommend using query to the size dataset
-    - Obtain the size for the measures given
+- Obtain the size for the measures given
 
 
 ## Results
