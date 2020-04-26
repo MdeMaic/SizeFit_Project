@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Edit Notes</h1>
+    <h2>Edit your notes here</h2>
+    <form method="POST">
+        <label for="note_title">
+            Title
+            <input type="text" name="note_title" />
+        </label>
+        <label for="note_content">
+            Content
+            <textarea name="note_content"></textarea>   
+        </label>
+        <input type="submit" name="submit" value="create"/>
+        <input type="reset" name="reset" value="clear"/>
+    </form>
+{% endblock %}

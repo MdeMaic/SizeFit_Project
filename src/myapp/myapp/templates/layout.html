@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css' ) }}"/>
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+
+    
+    <h2>Hello World!</h2>
+    
+    <!--
+    JINJA TEMPLATE 
+    {% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.name }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    -->
+</body>
+</html>

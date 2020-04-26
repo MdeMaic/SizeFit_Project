@@ -183,7 +183,7 @@ if __name__ == "__main__":
                                     "size_choosed_dw":dwtalla,
                                     "satisfact":size_satisf
                                     }
-                        #print(new_query)
+                        
 
                         query = coll_measures.insert_one(new_query)
 
@@ -191,6 +191,7 @@ if __name__ == "__main__":
                 
                 else:
                     cv2.putText(image,"Not saved. Need 4 values",(15,70),cv2.FONT_HERSHEY_SIMPLEX,0.5,RGBtoBGR(rojo), 2)
+            
             elif key == ord('r'):
                 print("------")
                 print("RESET")
