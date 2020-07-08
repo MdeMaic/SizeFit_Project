@@ -1,7 +1,7 @@
 # Fit-size Recommender | Project
 
 ## Abstract
-2 min video to show the process and outcome
+2 min video showing the process and outcome of the project - click on the image below.
 
 [![Video Abstract](presentation/images/tittle.png)](http://www.youtube.com/watch?v=1cd2vcfNbhs)
 
