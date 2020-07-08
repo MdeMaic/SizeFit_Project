@@ -1,5 +1,8 @@
 # Fit-size Recommender | Project
 
+## Abstract
+2 min video to show the process and outcome 
+[![Video Abstract](https://img.youtube.com/vi/1cd2vcfNbhs/0.jpg)](http://www.youtube.com/watch?v=1cd2vcfNbhs)
 
 ## Objective
 The current size guide used in Zara Kids is a table not very user-friendly. The objective of this project is create a size recommendator using a picture of the user and a Machine Learning model that validate the picture and recommend the best size according to the main measures.
